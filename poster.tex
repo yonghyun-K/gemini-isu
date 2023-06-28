@@ -1,5 +1,6 @@
 % Gemini theme
-% https://github.com/anishathalye/gemini
+% See: https://rev.cs.uchicago.edu/k4rtik/gemini-uccs
+% A fork of https://github.com/anishathalye/gemini
 
 \documentclass[final]{beamer}
 
@@ -11,13 +12,16 @@
 \usepackage{lmodern}
 \usepackage[size=custom,width=120,height=72,scale=1.0]{beamerposter}
 \usetheme{gemini}
-\usecolortheme{gemini}
+\usecolortheme{isu}
 \usepackage{graphicx}
+\usepackage{subfig}
 \usepackage{booktabs}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.14}
-\usepackage{anyfontsize}
+\usepackage[T1]{fontenc}
+\pgfplotsset{compat=1.17}
+
+\definecolor{color_283006}{rgb}{1,1,1}
 
 % ====================
 % Lengths
@@ -32,24 +36,97 @@
 
 \newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
 
+%%%%%%%%%%%%%%%%%%%% ABBREVIATIONS %%%%%%%%%%%%%%%%%%%%
+\newcommand{\bb}[1]{\mathbb{#1}}
+\renewcommand{\bf}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\cal}[1]{\mathcal{#1}}
+\renewcommand{\frak}[1]{\mathfrak{#1}}
+
+\newcommand{\quation}[1]{\begin{equation*}#1\end{equation*}}
+\newcommand{\lign}[1]{\begin{align*}#1\end{align*}}
+\newcommand{\lignat}[2]{\begin{alignat*}{#1}#2\end{alignat*}}
+\newcommand{\ather}[1]{\begin{gather*}#1\end{gather*}}
+\newcommand{\ultline}[1]{\begin{multline*}#1\end{multline*}}
+\newcommand{\ases}[1]{\begin{cases}#1\end{cases}}
+
+\newcommand{\obar}[1]{\overline{#1}}
+\newcommand{\ubar}[1]{\underline{#1}}
+
+\newcommand{\set}[1]{\left\{#1\right\}} % {abc} % braces
+\newcommand{\pa}[1]{\left(#1\right)} % (abc) % parentheses
+\newcommand{\ang}[1]{\left<#1\right>} % <abc> % angle brackets
+\newcommand{\bra}[1]{\left[#1\right]} % [abc] % brackets
+\newcommand{\abs}[1]{\left|#1\right|} % |abc|
+\newcommand{\norm}[1]{\left\|#1\right\|} %||abc||
+
+\newcommand{\mat}[1]{\begin{matrix}#1\end{matrix}} % \mat{1 & 0 & 1 \\ 0 & 0 & 1 \\ 1 & 1 & 0}
+\newcommand{\pmat}[1]{\pa{\mat{#1}}}
+\newcommand{\bmat}[1]{\bra{\mat{#1}}} 
+
+\newcommand{\sm}[1]{\begin{smallmatrix}#1\end{smallmatrix}}
+\newcommand{\psm}[1]{\pa{\sm{#1}}}
+\newcommand{\bsm}[1]{\bra{\sm{#1}}}
+
+\newcommand{\tci}[2]{\set{\,#1 \mid{} #2\,}}
+\newcommand{\pfrac}[2]{\pa{\frac{#1}{#2}}}
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pder}[2]{\pfrac{\partial #1}{\partial #2}}
+
+\newcommand{\firstp}[2]{\ensuremath{\displaystyle
+     \frac{\partial{#1}}{\partial{#2}}}} % \firstp{f}{x}
+\newcommand{\secondp}[3]{\ensuremath{\displaystyle
+     \frac{\partial^{2}{#1}}{\partial{#2}\,\partial{#3}^T}}} % \secondp{f}{x}{y}
+\newcommand{\secondpscalar}[3]{\ensuremath{\displaystyle
+     \frac{\partial^{2}{#1}}{\partial{#2}\,\partial{#3}}}} % \secondp{f}{x}{y}
+
+%%%%%%%%%%%%%%%%%%%% OPERATORS %%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\SE}{SE}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+
+%%%%%%%%%%%%%%%%%%%% LETTERS %%%%%%%%%%%%%%%%%%%%
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\iidsim}{\stackrel{i.i.d.}{\sim}}
+\newcommand{\iid}{\stackrel{i.i.d.}{\sim}}
+
+\newcommand{\argmin}{\mathrm{argmin}}
+\newcommand{\argmax}{\mathrm{argmax}}
+
+\newcommand{\st}{\text{ }s.t.\text{ }}
+
+\newcommand{\dps}{\displaystyle}
+
 % ====================
 % Title
 % ====================
 
-\title{Some fancy title: followed by some more text}
+\title{Penalized Weight Calibration\\ \large Application to neural network via ridge approximation}
 
-\author{Alyssa P. Hacker \inst{1} \and Ben Bitdiddle \inst{2} \and Lem E. Tweakit \inst{2}}
 
-\institute[shortinst]{\inst{1} Some Institute \samelineand \inst{2} Another Institute}
+\author{Yonghyun Kwon}
+
+\institute[shortinst]{Advised by Dr. Jae-Kwang Kim
+%\samelineand \inst{2} Another Institute
+}
 
 % ====================
 % Footer (optional)
 % ====================
 
 \footercontent{
-  \href{https://www.example.com}{https://www.example.com} \hfill
-  ABC Conference 2025, New York --- XYZ-1234 \hfill
-  \href{mailto:alyssa.p.hacker@example.com}{alyssa.p.hacker@example.com}}
+  \href{yhkwon@iastate.edu}{yhkwon@iastate.edu} \hfill
+  Joint Statistical Meetings 2022 - Survey Research Methods Section, Washington, D.C. \hfill
+  August 8, 2022
+  }
 % (can be left out to remove footer)
 
 % ====================
@@ -65,6 +142,17 @@
 % ====================
 
 \begin{document}
+\addtobeamertemplate{headline}{}
+{
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [anchor=north west, inner sep=3cm] at ([xshift=0.0cm,yshift=1.0cm]current page.north west)
+      {\includegraphics[height=2.5cm]{logos/isu.png}}; % also try shield-white.eps
+    \node [anchor=north west, inner sep=3cm] at ([xshift=0.0cm,yshift=-2.5cm]current page.north west){\huge \textbf{Department of Statistics}};
+          \node [anchor=north east, inner sep=3cm] at ([xshift=0.0cm,yshift=1.0cm]current page.north east)
+      {\includegraphics[height=5cm]{logos/cssm.png}};
+
+    \end{tikzpicture}
+}
 
 \begin{frame}[t]
 \begin{columns}[t]
@@ -72,65 +160,58 @@
 
 \begin{column}{\colwidth}
 
-  \begin{block}{A block title}
+  \begin{block}{Abstract}
 
-    Some block contents, followed by a diagram, followed by a dummy paragraph.
-
-    \begin{figure}
-      \centering
-      \begin{tikzpicture}[scale=6]
-        \draw[step=0.25cm,color=gray] (-1,-1) grid (1,1);
-        \draw (1,0) -- (0.2,0.2) -- (0,1) -- (-0.2,0.2) -- (-1,0)
-          -- (-0.2,-0.2) -- (0,-1) -- (0.2,-0.2) -- cycle;
-      \end{tikzpicture}
-      \caption{A figure caption.}
-    \end{figure}
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies
-    eget libero ac ullamcorper. Integer et euismod ante. Aenean vestibulum
-    lobortis augue, ut lobortis turpis rhoncus sed. Proin feugiat nibh a
-    lacinia dignissim. Proin scelerisque, risus eget tempor fermentum, ex
-    turpis condimentum urna, quis malesuada sapien arcu eu purus.
+    Auxiliary information is frequently used to improve the precision of design-based estimates in survey sampling. Calibration is one method for incorporating auxiliary information, but calibrating on many variables may increase the estimation error and sacrifice the accuracy of the resulting estimator. In this paper, we propose a new weighting technique for calibration based on the penalization method. This penalized calibration estimator can simultaneously and automatically adjust the variable's importance weight based on its predictive power. In addition, the penalized calibration estimator can be approximated by ridge calibration, which has a close relationship with soft calibration. The proposed approach can be extended to a non-linear class of basis functions, such as neural network basis functions.
 
   \end{block}
 
-  \begin{block}{A block containing a list}
-
-    Nam vulputate nunc felis, non condimentum lacus porta ultrices. Nullam sed
-    sagittis metus. Etiam consectetur gravida urna quis suscipit.
-
+  \begin{block}{Objectives / Assumptions}
     \begin{itemize}
-      \item \textbf{Mauris tempor} risus nulla, sed ornare
-      \item \textbf{Libero tincidunt} a duis congue vitae
-      \item \textbf{Dui ac pretium} morbi justo neque, ullamcorper
-    \end{itemize}
-
-    Eget augue porta, bibendum venenatis tortor.
-
+    \item A sample $A$ of size $n$ is selected from a population $U = \set{1, 2, \cdots, N}$ by a probability sampling design. 
+    \item We wish to estimate the population total $t_y = \sum_{i = 1}^N y_i$ by a calibration estimator $\sum_{i \in A}w_i y_i$.
+    \item The calibration weights $w_i$ are close to the design weights $d_i$ and let the calibration constraints hold
+    $$
+    \sum_{i \in A} w_i \bf x_i \approx \sum_{i \in U} \bf x_i
+    $$
+    \item In practical survey work these days, a large number of covariates$(\bf x)$ are available, but calibrating on too many auxiliary variables may increase the variance of the resulting estimators.
+    \item We assume that a superpopulation model$(\xi)$ holds
+    \begin{equation}
+        y_i = \bf x_i^T \bf \beta + e_i, \quad i = 1, \cdots, n \text{ where $e_i \iid (0, \sigma_e^2)$.}
+    \end{equation}
+    %\item Dealing with high dimensional data, measurement error of auxiliary variables needs to be taken into account.
+    \end{itemize}.
   \end{block}
 
-  \begin{alertblock}{A highlighted block}
-
-    This block catches your eye, so \textbf{important stuff} should probably go
-    here.
-
-    Curabitur eu libero vehicula, cursus est fringilla, luctus est. Morbi
-    consectetur mauris quam, at finibus elit auctor ac. Aliquam erat volutpat.
-    Aenean at nisl ut ex ullamcorper eleifend et eu augue. Aenean quis velit
-    tristique odio convallis ultrices a ac odio.
-
-    \begin{itemize}
-      \item \textbf{Fusce dapibus tellus} vel tellus semper finibus. In
-        consequat, nibh sed mattis luctus, augue diam fermentum lectus.
-      \item \textbf{In euismod erat metus} non ex. Vestibulum luctus augue in
-        mi condimentum, at sollicitudin lorem viverra.
-      \item \textbf{Suspendisse vulputate} mauris vel placerat consectetur.
-        Mauris semper, purus ac hendrerit molestie, elit mi dignissim odio, in
-        suscipit felis sapien vel ex.
-    \end{itemize}
-
-    Aenean tincidunt risus eros, at gravida lorem sagittis vel. Vestibulum ante
-    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+  \begin{alertblock}{Generalized Penalized Calibration}
+    General form of penalized regression estimator:
+        \begin{equation}
+            \hat \beta_{pen} = \mathrm{argmin}_{\beta} \pa{\sum_{i \in A} (y_i - \bf x_i^T \bf \beta)^2 + n \sum_{j = 1}^p p_\lambda(\abs{\beta_j})} \label{penloss}
+        \end{equation}
+    Taylor linearization of \eqref{penloss} gives
+        \begin{equation}
+            \hat \beta_{pen} = \mathrm{argmin}_{\beta} \pa{\sum_{i \in A} (y_i - \bf x_i^T \bf \beta)^2 + n \sum_{j = 1}^p \frac{p_\lambda^\prime(\abs{\tilde \beta_j})}{\abs{\tilde \beta_j}}\beta_j^2}
+        \end{equation}
+    where $\tilde \beta_j \approx \beta_j$.
+    The generalized ridge calibration estimator has the following general form
+    \begin{align}
+    \hat t_{y} &= \hat t_{y, HT} + (\bf t_{\bf x} - \hat {\bf t}_{\bf x, HT})^T(X^TX + \Omega^{-})^{-1}X^TY \\
+    &= \hat t_{y, HT} + (\bf t_{\bf x} - \hat {\bf t}_{\bf x, HT})^T\Omega X^T (X\Omega X^T + I^{-1})^{-1} Y \equiv \sum_{i \in A} \hat w_i y_i
+    \end{align}
+    where $\Omega = \diag\pa{\abs{\hat \beta_j} \bigg / p^\prime_\lambda\pa{\abs{\hat \beta_j}}}$
+    \renewcommand{\arraystretch}{1.5}
+    
+\begin{table}[H]
+\begin{tabular}{clll}
+\hline
+               & \multicolumn{1}{c}{$p_\lambda\pa{\abs{\beta_j}}$} & \multicolumn{1}{c}{$\Omega_{jj}$}     & \multicolumn{1}{c}{Calibration} \\ \hline
+Ridge          & $\lambda\abs{\beta_j}^2$                          & $(n\lambda)^{-1}$                     & Soft                            \\
+Lasso          & $\lambda\abs{\beta_j}$                            & $(n\lambda)^{-1}\abs{\hat \beta_j}$   & Sparse \& Soft                  \\
+Adaptive Lasso & $\lambda{\abs{\beta_j}} / {\abs{\hat \beta_j}}$   & $(n\lambda)^{-1}\abs{\hat \beta_j}^2$ & Sparse \& Soft                  \\
+SCAD / MC+ & $p_\lambda\pa{\abs{\beta_j}}$ & $\abs{\hat \beta_j} / p^\prime_\lambda\pa{\abs{\hat \beta_j}}$ & Exact \& Sparse \& Soft \\ \hline
+\end{tabular}
+\label{tab:my-table}
+\end{table}
 
   \end{alertblock}
 
@@ -140,91 +221,58 @@
 
 \begin{column}{\colwidth}
 
-  \begin{block}{A block containing an enumerated list}
+  \begin{block}{Asymptotics for Lasso}
 
-    Vivamus congue volutpat elit non semper. Praesent molestie nec erat ac
-    interdum. In quis suscipit erat. \textbf{Phasellus mauris felis, molestie
-    ac pharetra quis}, tempus nec ante. Donec finibus ante vel purus mollis
-    fermentum. Sed felis mi, pharetra eget nibh a, feugiat eleifend dolor. Nam
-    mollis condimentum purus quis sodales. Nullam eu felis eu nulla eleifend
-    bibendum nec eu lorem. Vivamus felis velit, volutpat ut facilisis ac,
-    commodo in metus.
-
-    \begin{enumerate}
-      \item \textbf{Morbi mauris purus}, egestas at vehicula et, convallis
-        accumsan orci. Orci varius natoque penatibus et magnis dis parturient
-        montes, nascetur ridiculus mus.
-      \item \textbf{Cras vehicula blandit urna ut maximus}. Aliquam blandit nec
-        massa ac sollicitudin. Curabitur cursus, metus nec imperdiet bibendum,
-        velit lectus faucibus dolor, quis gravida metus mauris gravida turpis.
-      \item \textbf{Vestibulum et massa diam}. Phasellus fermentum augue non
-        nulla accumsan, non rhoncus lectus condimentum.
-    \end{enumerate}
+\begin{itemize}
+    \item Under certain regularity conditions, if $\beta$ is k-sparse and $\lambda \equiv 2\sigma\sqrt{N^{-1} \tau \log p}$, we have
+\begin{equation}
+    \hat {\bf \beta}_n - \bf \beta \mid \cal F_N = O_p\pa{\sqrt{\frac{\tau k\log p}{n}}}
+\end{equation}
+with probability($\xi$) at least $1 - 4e^{-(\tau - 2) \log p / 2}$ where $\tau > 2$ is a positive constant and $\cal F_N = \set{y_1, \cdots, y_N}$.
+    \item Under certain regularity conditions, if $\beta$ is k-sparse and $k^2\log k / n \to 0$, we have
+\begin{equation}
+    \hat V_p(\hat t_y \mid \cal F_N)^{-1/2} (\hat t_y - t_{y, N}) \mid \cal F_n \stackrel{d}{\to}N(0, 1)
+\end{equation}
+$\xi$-almost surely.
+\end{itemize}
 
   \end{block}
 
-  \begin{block}{Fusce aliquam magna velit}
+  \begin{block}{Example: Adaptive Lasso}
 
-    Et rutrum ex euismod vel. Pellentesque ultricies, velit in fermentum
-    vestibulum, lectus nisi pretium nibh, sit amet aliquam lectus augue vel
-    velit. Suspendisse rhoncus massa porttitor augue feugiat molestie. Sed
-    molestie ut orci nec malesuada. Sed ultricies feugiat est fringilla
-    posuere.
-
-    \begin{figure}
-      \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            scale only axis,
-            no markers,
-            domain=0:2*pi,
-            samples=100,
-            axis lines=center,
-            axis line style={-},
-            ticks=none]
-          \addplot[red] {sin(deg(x))};
-          \addplot[blue] {cos(deg(x))};
-        \end{axis}
-      \end{tikzpicture}
-      \caption{Another figure caption.}
-    \end{figure}
+\begin{itemize}
+    \item Assuming that $\bf \beta$ is known, the model MSE of $\hat t_y$ is
+    \begin{eqnarray*} 
+     E_\xi \bra{\pa{\hat t_y - t_y}^2} = \left\{ \sum_{i \in A} w_i \bf x_i - \sum_{i \in U} \bf x_i \right\}' \bf \beta \bf \beta' \left\{ \sum_{i \in A} w_i \bf x_i - \sum_{i \in U} \bf x_i \right\} + \sigma_e^2 \sum_{i \in A}(w_i - d_i)^2 + \mbox{Const.} 
+    \end{eqnarray*} 
+    \item Minimizing $E_\xi \bra{\pa{\hat t_y - t_y}^2}$ gives
+        \begin{equation}
+            \bf w = \bf d_n + (X\Omega X^T + I_n)^{-1}X\Omega\pa{\sum_{i \in U}\bf x_i - \sum_{i \in A} \bf d_i \bf x_i} \label{what3}
+        \end{equation}
+        where $\Omega = \sigma_e^{-2} \bf \beta \bf \beta^T$. Ignoring off-diagonal elements, we can use $\Omega = \sigma_e^{-2}\diag\pa{\beta_j^2}$. It is equivalent to the adaptive lasso with tuning parameter $\lambda = n^{-1}\sigma_e^2$.
+\end{itemize}
 
   \end{block}
 
-  \begin{block}{Nam cursus consequat egestas}
-
-    Nulla eget sem quam. Ut aliquam volutpat nisi vestibulum convallis. Nunc a
-    lectus et eros facilisis hendrerit eu non urna. Interdum et malesuada fames
-    ac ante \textit{ipsum primis} in faucibus. Etiam sit amet velit eget sem
-    euismod tristique. Praesent enim erat, porta vel mattis sed, pharetra sed
-    ipsum. Morbi commodo condimentum massa, \textit{tempus venenatis} massa
-    hendrerit quis. Maecenas sed porta est. Praesent mollis interdum lectus,
-    sit amet sollicitudin risus tincidunt non.
-
-    Etiam sit amet tempus lorem, aliquet condimentum velit. Donec et nibh
-    consequat, sagittis ex eget, dictum orci. Etiam quis semper ante. Ut eu
-    mauris purus. Proin nec consectetur ligula. Mauris pretium molestie
-    ullamcorper. Integer nisi neque, aliquet et odio non, sagittis porta justo.
-
-    \begin{itemize}
-      \item \textbf{Sed consequat} id ante vel efficitur. Praesent congue massa
-        sed est scelerisque, elementum mollis augue iaculis.
-        \begin{itemize}
-          \item In sed est finibus, vulputate
-            nunc gravida, pulvinar lorem. In maximus nunc dolor, sed auctor eros
-            porttitor quis.
-          \item Fusce ornare dignissim nisi. Nam sit amet risus vel lacus
-            tempor tincidunt eu a arcu.
-          \item Donec rhoncus vestibulum erat, quis aliquam leo
-            gravida egestas.
-        \end{itemize}
-      \item \textbf{Sed luctus, elit sit amet} dictum maximus, diam dolor
-        faucibus purus, sed lobortis justo erat id turpis.
-      \item \textbf{Pellentesque facilisis dolor in leo} bibendum congue.
-        Maecenas congue finibus justo, vitae eleifend urna facilisis at.
-    \end{itemize}
-
+  \begin{block}{Application to neural networks}
+    Instead of \eqref{penloss}, one can consider a neural network instead of linear mean function and try to minimize
+        \begin{equation}
+            \sum_{i \in A} (y_i - f(\bf x_i; \bf \theta))^2 + n \sum_{j = 1}^p p_\lambda(\abs{\theta_j})
+        \end{equation}
+    where $f(\cdot; \theta) = \sigma_{\bf \theta_L} \circ \sigma_{\bf \theta_{L-1}} \circ \cdots \sigma_{\bf \theta_{2}} \circ \sigma_{\bf \theta_1}$ and $\sigma_{\bf \theta_l}$ is an activation function, such as ReLU or sigmoid. If we choose ReLU, then $f$ can be written as $f(\bf x_i; \bf \theta) = \sum_{j = 1}^q \beta_j h(\bf x_i; \bf \theta_j)$ for a scalr function $h(\cdot; \bf \theta_j)$. In this case, instead of calibrating on $ f(\bf x_i; \hat {\bf \theta})$ as in \cite{montanari2005nonparametric}, we may calibrate on $h(\bf x_i; \hat {\bf \theta}_j)$
   \end{block}
+  
+   \begin{figure}%
+    \centering
+    \includegraphics[width = 30cm]{NNcal/total.png}
+\end{figure}
+  
+%  \begin{figure}%
+%    \centering
+%    \subfloat{{\includegraphics[width=11cm]{NNcal/f3_1.png} %}}
+%    \subfloat{{\includegraphics[width=12cm]{NNcal/f3_2.png} %}}%
+%    \subfloat{{\includegraphics[width=12cm]{NNcal/f3.png} %}}%
+%\end{figure}
 
 \end{column}
 
@@ -232,75 +280,41 @@
 
 \begin{column}{\colwidth}
 
-  \begin{exampleblock}{A highlighted block containing some math}
+  \begin{block}{Simulation results}
+\begin{figure}%
+    \centering
+    \subfloat{{\includegraphics[width=19cm]{jsm_poster/sim/n100.png} }}%
+    \subfloat{{\includegraphics[width=19cm]{jsm_poster/sim/n500.png} }}%
+    \caption{Root mean squared error for different penalties.}%
+    \label{fig:example}%
+    \centering
+    \subfloat{{\includegraphics[width=19cm]{jsm_poster/sim/n100_w.png} }}%
+    \subfloat{{\includegraphics[width=19cm]{jsm_poster/sim/n500_w.png} }}%
+    \caption{Boxplots for calibration weights}%
+    \label{fig:example}%
+\end{figure}
 
-    A different kind of highlighted block.
+  \end{block}
 
-    $$
-    \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
-    $$
+  \begin{block}{Conclusion}
 
-    Interdum et malesuada fames $\{1, 4, 9, \ldots\}$ ac ante ipsum primis in
-    faucibus. Cras eleifend dolor eu nulla suscipit suscipit. Sed lobortis non
-    felis id vulputate.
-
-    \heading{A heading inside a block}
-
-    Praesent consectetur mi $x^2 + y^2$ metus, nec vestibulum justo viverra
-    nec. Proin eget nulla pretium, egestas magna aliquam, mollis neque. Vivamus
-    dictum $\mathbf{u}^\intercal\mathbf{v}$ sagittis odio, vel porta erat
-    congue sed. Maecenas ut dolor quis arcu auctor porttitor.
-
-    \heading{Another heading inside a block}
-
-    Sed augue erat, scelerisque a purus ultricies, placerat porttitor neque.
-    Donec $P(y \mid x)$ fermentum consectetur $\nabla_x P(y \mid x)$ sapien
-    sagittis egestas. Duis eget leo euismod nunc viverra imperdiet nec id
-    justo.
-
-  \end{exampleblock}
-
-  \begin{block}{Nullam vel erat at velit convallis laoreet}
-
-    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-    inceptos himenaeos. Phasellus libero enim, gravida sed erat sit amet,
-    scelerisque congue diam. Fusce dapibus dui ut augue pulvinar iaculis.
-
-    \begin{table}
-      \centering
-      \begin{tabular}{l r r c}
-        \toprule
-        \textbf{First column} & \textbf{Second column} & \textbf{Third column} & \textbf{Fourth} \\
-        \midrule
-        Foo & 13.37 & 384,394 & $\alpha$ \\
-        Bar & 2.17 & 1,392 & $\beta$ \\
-        Baz & 3.14 & 83,742 & $\delta$ \\
-        Qux & 7.59 & 974 & $\gamma$ \\
-        \bottomrule
-      \end{tabular}
-      \caption{A table caption.}
-    \end{table}
-
-    Donec quis posuere ligula. Nunc feugiat elit a mi malesuada consequat. Sed
-    imperdiet augue ac nibh aliquet tristique. Aenean eu tortor vulputate,
-    eleifend lorem in, dictum urna. Proin auctor ante in augue tincidunt
-    tempor. Proin pellentesque vulputate odio, ac gravida nulla posuere
-    efficitur. Aenean at velit vel dolor blandit molestie. Mauris laoreet
-    commodo quam, non luctus nibh ullamcorper in. Class aptent taciti sociosqu
-    ad litora torquent per conubia nostra, per inceptos himenaeos.
-
-    Nulla varius finibus volutpat. Mauris molestie lorem tincidunt, iaculis
-    libero at, gravida ante. Phasellus at felis eu neque suscipit suscipit.
-    Integer ullamcorper, dui nec pretium ornare, urna dolor consequat libero,
-    in feugiat elit lorem euismod lacus. Pellentesque sit amet dolor mollis,
-    auctor urna non, tempus sem.
+    \begin{itemize}
+        %\item If $r \neq 0$, the regression estimators are not unbiased due to the informative sampling scheme.
+        \item Ridge approximation of Lasso and SCAD estimators determines the degree of calibration(soft, exact).
+        \item The proposed method is similar to many other machine learning methods where design weights are not used when estimating nuisance parameter $\beta$.
+        \item Lasso and SCAD-based estimators are better than HT or GREG estimators for moderate sample size $n$, since they produce smaller mean squared error.
+        \item SCAD estimators are as precise as oracle estimators for large enough sample size(oracle property) under suitable choice of regularization parameter.
+        %\item When measurement error presents, penalized calibration can be used.
+        %\item The Ridge calibration can be extended to Lasso calibration.
+    \end{itemize}
 
   \end{block}
 
   \begin{block}{References}
-
-    \nocite{*}
-    \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
+    \nocite{park2008ridge}
+    \nocite{mcconville2017model}
+    \nocite{goga2010overview}
+    \footnotesize{\bibliographystyle{plain}\bibliography{ref}}
 
   \end{block}
 
